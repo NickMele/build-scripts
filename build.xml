@@ -4,13 +4,13 @@
     <!-- the .jar file is located in the tools directory -->
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
-            <pathelement location="${basedir}/build/tools/ant-contrib-1.0b3.jar"/>
+            <pathelement location="${basedir}/build-scripts/tools/ant-contrib-1.0b3.jar"/>
         </classpath>
     </taskdef>
 
     <!-- load property files -->
-    <property file="build/config/project.properties"/>
-    <property file="build/config/version.properties"/>
+    <property file="build-scripts/config/project.properties"/>
+    <property file="build-scripts/config/version.properties"/>
 
     <!-- load shell environment -->
     <property environment="ENV" />
@@ -19,11 +19,6 @@
         <echo>Beginning build process...</echo>
         <echo>This will deploy any files that are in ${dir.source} to ./${dir.releases}</echo>
         <echo>Please make sure that you have everything committed into your source control...</echo>
-        <input message="Are you sure you want to continue?" validargs="Y,n" addproperty="do.delete" />
-        <condition property="do.abort">
-            <equals arg1="n" arg2="${do.delete}"/>
-        </condition>
-        <fail if="do.abort">Build aborted by user.</fail>
 
         <!-- Create a release of our core experience files -->
         <condition property="latest.version.set" else="false">
@@ -39,12 +34,19 @@
             </else>
         </if>
 
-
-        <input message="Enter a version number for this release" addproperty="current.version" />
+        <condition property="current.version.set" else="false">
+          <isset property="current.version"/>
+        </condition>
+        <if>
+            <equals arg1="${current.version.set}" arg2="false"/>
+            <then>
+                <input message="Enter a version number for this release" addproperty="current.version" />
+            </then>
+        </if>
 
         <echo>Creating a release of src files for version ${current.version}</echo>
 
-        <antcall target="-build.release" />
+        <antcall target="-test.release" />
     </target>
 
     <target name="-build.release"

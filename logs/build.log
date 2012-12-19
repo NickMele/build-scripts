@@ -1,0 +1,53 @@
+     [echo] Beginning build process...
+     [echo] 12/19/2012 01:35
+     [echo] This will deploy any files that are in ./src to ./releases
+     [echo] Please make sure that you have everything committed into your source control...
+     [echo] Lucky you. This is the first release for this project (or someone deleted the versions files)
+    [input] Enter a version number for this release
+     [echo] Creating a release of src files for version 1.0.0
+
+-create:
+    [mkdir] Created dir: /Users/nmele/Projects/ProjectExample/releases
+    [mkdir] Created dir: /Users/nmele/Projects/ProjectExample/releases/latest
+
+-copy:
+     [echo] Copying over source files...
+     [copy] Copying 75 files to /Users/nmele/Projects/ProjectExample/releases/latest
+     [copy] Copied 17 empty directories to 6 empty directories under /Users/nmele/Projects/ProjectExample/releases/latest
+     [echo] source files now in: /Users/nmele/Projects/ProjectExample/releases/latest
+
+-css:
+     [echo] Minifying stylesheets...
+     [echo] All stylesheets minified and copied to: /Users/nmele/Projects/ProjectExample/releases/latest/css/
+
+-js:
+     [echo] Minifying scripts...
+     [echo] All scripts minified and copied to: /Users/nmele/Projects/ProjectExample/releases/latest/js/
+
+-images.png:
+     [echo] Optimizing images...
+     [echo] This part might take a few minutes.
+     [echo]  
+     [echo] First, we run optipng on the .png files...
+
+-images.jpg:
+     [echo] Now, we clean up those jpgs...
+     [echo] Images optimization now complete.
+
+-version:
+[propertyfile] Creating new property file: /Users/nmele/Projects/ProjectExample/build-scripts/config/version.properties
+
+-tag:
+     [echo] Tagging is turned off for this project. You can manually tag this release using your source control tools.
+
+-upload:
+     [echo] Uploading this release and previous release to remote...
+    [input] Please enter password
+     [echo] Beginning transfer, this may take a moment so please be patient...
+      [scp] Connecting to www4.pairlite.com:22
+      [scp] done.
+     [echo] Transfer complete.
+
+-build.release:
+
+BUILD SUCCESSFUL

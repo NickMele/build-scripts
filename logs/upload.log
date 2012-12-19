@@ -1,0 +1,7 @@
+     [echo] Uploading this release and previous release to remote...
+    [input] Please enter password
+     [echo] Beginning transfer, this may take a moment so please be patient...
+Property "latest.version" has not been set
+      [scp] Connecting to www4.pairlite.com:22
+      [scp] done.
+     [echo] Transfer complete.

@@ -29,14 +29,58 @@
     <property environment="ENV" />
 
     <target name="build">
-        <tstamp>
+        <echo>Building a new release...</echo>
+        
+        <antcall target="-build.release" />
+    </target>
+    
+    <target name="test">
+    	<echo>Testing a new release...</echo>
+    	<echo>No files will actually be modified.</echo>
+        
+        <antcall target="-test.release" />
+    </target>
+    
+    <target name="upload"
+    	depends="
+    		-upload
+    		"/>
+    
+    <!-- TODO: Build a process that will create the proper directory structure for a project -->
+    <target name="create"
+    	depends=""/>
+
+    <target name="-build.release"
+    	depends="
+    	 	-init,
+		-create,
+		-copy,
+		-css,
+		-js,
+		-images.png,
+		-images.jpg,
+		-version,
+		-tag,
+		-upload
+    	 	"/>
+
+    <target name="-test.release"
+        depends="
+         	-init,
+		-create,
+		-copy,
+		-version,
+		-tag
+        	"/>
+    
+    <target name="-init" description="(PRIVATE) Initialize the build process">
+    	<tstamp>
             <format property="timestamp" pattern="MM/dd/yyyy hh:mm"/>
         </tstamp>
 
         <record name="${basedir}/${dir.logs}/${log.build}" loglevel="info" append="true"/>
-
-        <echo>Beginning build process...</echo>
-        <echo>${timestamp}</echo>
+    	
+    	<echo>${timestamp}</echo>
         <echo>This will deploy any files that are in ${dir.source} to ./${dir.releases}</echo>
         <echo>Please make sure that you have everything committed into your source control...</echo>
 
@@ -65,32 +109,7 @@
         </if>
 
         <echo>Creating a release of src files for version ${current.version}</echo>
-
-        <antcall target="-build.release" />
     </target>
-
-    <target name="-build.release"
-    	 depends="
-	    	 -create,
-	    	 -copy,
-	    	 -css,
-	    	 -js,
-             -images.png,
-             -images.jpg,
-	    	 -version,
-             -tag,
-             -upload
-    	 "/>
-
-    <target name="-test.release"
-         depends="
-             -create,
-             -copy,
-             -version,
-             -tag
-         "/>
-
-    <target name="upload" depends="-upload"/>
 
     <target name="-create" description="(PRIVATE) Versions previous release, moves from latest into that folder, empties latest for new release">
         <condition property="releases.exists">

@@ -13,6 +13,6 @@ This build script is used to create releases of source code for a project.
 9. [OPTIONAL] Tags git repo with version number
 
 ## Future implementations
-- Log each release to track history of builds
-- Implement option to tag in git or svn
+- Implement option to tag in svn
 - Update boilerplate with references to any new files / name changes
+- Create a directory structure for the site
